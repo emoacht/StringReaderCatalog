@@ -17,7 +17,7 @@ namespace StringReaderCatalog
 
             using (var fs = new FileStream(filePath, FileMode.Open, FileAccess.Read))
             {
-                // If BOM there, System.Runtime.Serialization.SerializationException will be thrown.
+                // If BOM is contained, System.Runtime.Serialization.SerializationException will be thrown.
                 return (T)serializer.ReadObject(fs);
             }
         }
@@ -32,7 +32,7 @@ namespace StringReaderCatalog
                 await fs.CopyToAsync(ms).ConfigureAwait(false);
                 ms.Seek(0, SeekOrigin.Begin);
 
-                // If BOM there, System.Runtime.Serialization.SerializationException will be thrown.
+                // If BOM is contained, System.Runtime.Serialization.SerializationException will be thrown.
                 return (T)serializer.ReadObject(ms);
             }
         }
