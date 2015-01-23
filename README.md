@@ -1,7 +1,7 @@
 String Reader Catalog
 =====================
 
-Catalog of various methods to read string by C#, especially focusing on handling of Unicode BOM.
+A catalog of various methods to read string by C#, especially focusing on handling of Unicode BOM
 
 ##Note
 
