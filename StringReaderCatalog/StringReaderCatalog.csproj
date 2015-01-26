@@ -42,6 +42,8 @@
   <ItemGroup>
     <Compile Include="FileAddition.cs" />
     <Compile Include="JsonStringReader.cs" />
+    <Compile Include="StreamBytesReader.cs" />
+    <Compile Include="StreamProgress.cs" />
     <Compile Include="StringReader.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UnicodeStringReader.cs" />

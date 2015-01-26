@@ -5,6 +5,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -27,7 +28,9 @@ namespace StringReaderCatalog.Wpf
 
         private async void OnLoaded(object sender, RoutedEventArgs e)
         {
-            await JsonSaveLoadAsync();
+            //await JsonSaveLoadAsync();
+
+            await StreamBytesReadAsync();
         }
 
         private async Task JsonSaveLoadAsync()
@@ -43,6 +46,44 @@ namespace StringReaderCatalog.Wpf
             catch (Exception ex)
             {
                 Debug.WriteLine(ex);
+            }
+        }
+
+        private readonly int[] bufferSizes = { 64, 128, 256, 512, }; // Buffer sizes in KiB
+
+        private async Task StreamBytesReadAsync()
+        {
+            var filePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "TestFile");
+            if (!File.Exists(filePath))
+                return;
+
+            foreach (var bufferSize in bufferSizes)
+            {
+                Debug.WriteLine("Start {0}KiB", bufferSize);
+
+                var sw = new Stopwatch();
+                sw.Start();
+
+                double oldValue = 0;
+
+                var progress = new Progress<StreamProgress>(x => ShowPercentage(ref oldValue, x.Percentage));
+
+                await StreamBytesReader.ReadBytesAsync(filePath, bufferSize * 1024, progress, CancellationToken.None);
+
+                sw.Stop();
+
+                Debug.WriteLine("Complete {0}KiB {1:f3} sec", bufferSize, sw.Elapsed.TotalSeconds);
+            }
+        }
+
+        private void ShowPercentage(ref double oldValue, double newValue)
+        {
+            var value = Math.Round(newValue * 100D) / 100D;
+
+            if (oldValue < value)
+            {
+                oldValue = value;
+                Debug.WriteLine("{0:f2}", value);
             }
         }
     }
