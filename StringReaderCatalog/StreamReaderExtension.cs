@@ -10,7 +10,7 @@ namespace StringReaderCatalog
 	/// <summary>
 	/// Extension method for <see cref="System.IO.StreamReader"/>
 	/// </summary>
-	public class StreamReaderExtension
+	public static class StreamReaderExtension
 	{
 		/// <summary>
 		/// Read lines as IEnumerable.
