@@ -200,6 +200,18 @@ namespace StringReaderCatalog.Test
 			ReadBytesTestBase(7);
 		}
 
+		[TestMethod]
+		public void ReadBytesTest8()
+		{
+			ReadBytesTestBase(8);
+		}
+
+		[TestMethod]
+		public void ReadBytesTest9()
+		{
+			ReadBytesTestBase(9);
+		}
+
 		#endregion
 
 		#region ReadBytesAsync test
@@ -244,6 +256,12 @@ namespace StringReaderCatalog.Test
 		public async Task ReadBytesAsyncTest6()
 		{
 			await ReadBytesAsyncTestBase(6);
+		}
+
+		[TestMethod]
+		public async Task ReadBytesAsyncTest7()
+		{
+			await ReadBytesAsyncTestBase(7);
 		}
 
 		#endregion

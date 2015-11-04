@@ -210,16 +210,34 @@ namespace StringReaderCatalog
 						return UnicodeStringReader.Read(ms.ToArray());
 					}
 
-				/* BOM will remain as unreadable character. */
 				case 6:
+					// MemoryStream constructor then GetBuffer then UnicodeStringReader.Read
+					using (var ms = new MemoryStream(source, 0, source.Length, false, true))
+					{
+						// When a MemoryStream is instantiated with a byte array, MemoryStream.GetBuffer
+						// method returns the identical byte array and needs not to specify its length.
+						return UnicodeStringReader.Read(ms.GetBuffer());
+					}
+
+				/* BOM will remain as unreadable character. */
+				case 7:
 					// Encoding.GetString
 					return Encoding.UTF8.GetString(source);
 
-				case 7:
+				case 8:
 					// MemoryStream constructor then ToArray then Encoding.GetString
 					using (var ms = new MemoryStream(source))
 					{
 						return Encoding.UTF8.GetString(ms.ToArray());
+					}
+
+				case 9:
+					// MemoryStream constructor then GetBuffer then Encoding.GetString
+					using (var ms = new MemoryStream(source, 0, source.Length, false, true))
+					{
+						// When a MemoryStream is instantiated with a byte array, MemoryStream.GetBuffer
+						// method returns the identical byte array and needs not to specify its length.
+						return Encoding.UTF8.GetString(ms.GetBuffer());
 					}
 
 				default:
@@ -290,6 +308,14 @@ namespace StringReaderCatalog
 					{
 						await ms.WriteAsync(source, 0, source.Length);
 						return Encoding.UTF8.GetString(ms.ToArray());
+					}
+
+				case 7:
+					// MemoryStream WriteAsync then GetBuffer then Encoding.GetString
+					using (var ms = new MemoryStream())
+					{
+						await ms.WriteAsync(source, 0, source.Length);
+						return Encoding.UTF8.GetString(ms.GetBuffer(), 0, (int)ms.Length);
 					}
 
 				default:
