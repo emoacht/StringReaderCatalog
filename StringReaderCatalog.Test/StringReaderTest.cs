@@ -3,272 +3,26 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 
 namespace StringReaderCatalog.Test
 {
-	[TestClass]
+	[TestFixture]
 	public class StringReaderTest
 	{
-		#region ReadFile test
-
-		[TestMethod]
-		public void ReadFileTest0()
-		{
-			ReadFileTestBase(0);
-		}
-
-		[TestMethod]
-		public void ReadFileTest1()
-		{
-			ReadFileTestBase(1);
-		}
-
-		[TestMethod]
-		public void ReadFileTest2()
-		{
-			ReadFileTestBase(2);
-		}
-
-		[TestMethod]
-		public void ReadFileTest3()
-		{
-			ReadFileTestBase(3);
-		}
-
-		[TestMethod]
-		public void ReadFileTest4()
-		{
-			ReadFileTestBase(4);
-		}
-
-		[TestMethod]
-		public void ReadFileTest5()
-		{
-			ReadFileTestBase(5);
-		}
-
-		[TestMethod]
-		public void ReadFileTest6()
-		{
-			ReadFileTestBase(6);
-		}
-
-		[TestMethod]
-		public void ReadFileTest7()
-		{
-			ReadFileTestBase(7);
-		}
-
-		[TestMethod]
-		public void ReadFileTest8()
-		{
-			ReadFileTestBase(8);
-		}
-
-		[TestMethod]
-		public void ReadFileTest9()
-		{
-			ReadFileTestBase(9);
-		}
-
-		[TestMethod]
-		public void ReadFileTest10()
-		{
-			ReadFileTestBase(10);
-		}
-
-		[TestMethod]
-		public void ReadFileTest11()
-		{
-			ReadFileTestBase(11);
-		}
-
-		#endregion
-
-		#region ReadFileAsync test
-
-		[TestMethod]
-		public async Task ReadFileAsyncTest0()
-		{
-			await ReadFileAsyncTestBase(0);
-		}
-
-		[TestMethod]
-		public async Task ReadFileAsyncTest1()
-		{
-			await ReadFileAsyncTestBase(1);
-		}
-
-		[TestMethod]
-		public async Task ReadFileAsyncTest2()
-		{
-			await ReadFileAsyncTestBase(2);
-		}
-
-		[TestMethod]
-		public async Task ReadFileAsyncTest3()
-		{
-			await ReadFileAsyncTestBase(3);
-		}
-
-		[TestMethod]
-		public async Task ReadFileAsyncTest4()
-		{
-			await ReadFileAsyncTestBase(4);
-		}
-
-		[TestMethod]
-		public async Task ReadFileAsyncTest5()
-		{
-			await ReadFileAsyncTestBase(5);
-		}
-
-		[TestMethod]
-		public async Task ReadFileAsyncTest6()
-		{
-			await ReadFileAsyncTestBase(6);
-		}
-
-		[TestMethod]
-		public async Task ReadFileAsyncTest7()
-		{
-			await ReadFileAsyncTestBase(7);
-		}
-
-		[TestMethod]
-		public async Task ReadFileAsyncTest8()
-		{
-			await ReadFileAsyncTestBase(8);
-		}
-
-		[TestMethod]
-		public async Task ReadFileAsyncTest9()
-		{
-			await ReadFileAsyncTestBase(9);
-		}
-
-		#endregion
-
-		#region ReadBytes test
-
-		[TestMethod]
-		public void ReadBytesTest0()
-		{
-			ReadBytesTestBase(0);
-		}
-
-		[TestMethod]
-		public void ReadBytesTest1()
-		{
-			ReadBytesTestBase(1);
-		}
-
-		[TestMethod]
-		public void ReadBytesTest2()
-		{
-			ReadBytesTestBase(2);
-		}
-
-		[TestMethod]
-		public void ReadBytesTest3()
-		{
-			ReadBytesTestBase(3);
-		}
-
-		[TestMethod]
-		public void ReadBytesTest4()
-		{
-			ReadBytesTestBase(4);
-		}
-
-		[TestMethod]
-		public void ReadBytesTest5()
-		{
-			ReadBytesTestBase(5);
-		}
-
-		[TestMethod]
-		public void ReadBytesTest6()
-		{
-			ReadBytesTestBase(6);
-		}
-
-		[TestMethod]
-		public void ReadBytesTest7()
-		{
-			ReadBytesTestBase(7);
-		}
-
-		[TestMethod]
-		public void ReadBytesTest8()
-		{
-			ReadBytesTestBase(8);
-		}
-
-		[TestMethod]
-		public void ReadBytesTest9()
-		{
-			ReadBytesTestBase(9);
-		}
-
-		#endregion
-
-		#region ReadBytesAsync test
-
-		[TestMethod]
-		public async Task ReadBytesAsyncTest0()
-		{
-			await ReadBytesAsyncTestBase(0);
-		}
-
-		[TestMethod]
-		public async Task ReadBytesAsyncTest1()
-		{
-			await ReadBytesAsyncTestBase(1);
-		}
-
-		[TestMethod]
-		public async Task ReadBytesAsyncTest2()
-		{
-			await ReadBytesAsyncTestBase(2);
-		}
-
-		[TestMethod]
-		public async Task ReadBytesAsyncTest3()
-		{
-			await ReadBytesAsyncTestBase(3);
-		}
-
-		[TestMethod]
-		public async Task ReadBytesAsyncTest4()
-		{
-			await ReadBytesAsyncTestBase(4);
-		}
-
-		[TestMethod]
-		public async Task ReadBytesAsyncTest5()
-		{
-			await ReadBytesAsyncTestBase(5);
-		}
-
-		[TestMethod]
-		public async Task ReadBytesAsyncTest6()
-		{
-			await ReadBytesAsyncTestBase(6);
-		}
-
-		[TestMethod]
-		public async Task ReadBytesAsyncTest7()
-		{
-			await ReadBytesAsyncTestBase(7);
-		}
-
-		#endregion
-
-		#region Base
-
-		private void ReadFileTestBase(int selector)
+		[TestCase(0, TestName = "ReadFile0", Result = true)]
+		[TestCase(1, TestName = "ReadFile1", Result = true)]
+		[TestCase(2, TestName = "ReadFile2", Result = true)]
+		[TestCase(3, TestName = "ReadFile3", Result = true)]
+		[TestCase(4, TestName = "ReadFile4", Result = true)]
+		[TestCase(5, TestName = "ReadFile5", Result = true)]
+		[TestCase(6, TestName = "ReadFile6", Result = true)]
+		[TestCase(7, TestName = "ReadFile7", Result = true)]
+		[TestCase(8, TestName = "ReadFile8", Result = true)]
+		[TestCase(9, TestName = "ReadFile9", Result = true)]
+		[TestCase(10, TestName = "ReadFile10", Result = false, ExpectedException = typeof(FormatException))]
+		[TestCase(11, TestName = "ReadFile11", Result = false, ExpectedException = typeof(FormatException))]
+		public bool ReadFileTest(int selector)
 		{
 			using (var tf = new TestFile(Encoding.UTF8))
 			{
@@ -276,12 +30,22 @@ namespace StringReaderCatalog.Test
 
 				var imageBytes = Convert.FromBase64String(imageString);
 
-				Assert.AreEqual<int>(tf.FileSize, imageBytes.Length);
-				Assert.IsTrue(imageBytes.SequenceEqual(tf.FileBytes));
+				return (tf.FileSize == imageBytes.Length)
+					&& imageBytes.SequenceEqual(tf.FileBytes);
 			}
 		}
 
-		private async Task ReadFileAsyncTestBase(int selector)
+		[TestCase(0, TestName = "ReadFileAsync0", Result = true)]
+		[TestCase(1, TestName = "ReadFileAsync1", Result = true)]
+		[TestCase(2, TestName = "ReadFileAsync2", Result = true)]
+		[TestCase(3, TestName = "ReadFileAsync3", Result = true)]
+		[TestCase(4, TestName = "ReadFileAsync4", Result = true)]
+		[TestCase(5, TestName = "ReadFileAsync5", Result = true)]
+		[TestCase(6, TestName = "ReadFileAsync6", Result = true)]
+		[TestCase(7, TestName = "ReadFileAsync7", Result = true)]
+		[TestCase(8, TestName = "ReadFileAsync8", Result = true)]
+		[TestCase(9, TestName = "ReadFileAsync9", Result = false, ExpectedException = typeof(FormatException))]
+		public async Task<bool> ReadFileAsyncTest(int selector)
 		{
 			using (var tf = new TestFile(Encoding.UTF8))
 			{
@@ -289,12 +53,22 @@ namespace StringReaderCatalog.Test
 
 				var imageBytes = Convert.FromBase64String(imageString);
 
-				Assert.AreEqual<int>(tf.FileSize, imageBytes.Length);
-				Assert.IsTrue(imageBytes.SequenceEqual(tf.FileBytes));
+				return (tf.FileSize == imageBytes.Length)
+					&& imageBytes.SequenceEqual(tf.FileBytes);
 			}
 		}
 
-		private void ReadBytesTestBase(int selector)
+		[TestCase(0, TestName = "ReadBytes0", Result = true)]
+		[TestCase(1, TestName = "ReadBytes1", Result = true)]
+		[TestCase(2, TestName = "ReadBytes2", Result = true)]
+		[TestCase(3, TestName = "ReadBytes3", Result = true)]
+		[TestCase(4, TestName = "ReadBytes4", Result = true)]
+		[TestCase(5, TestName = "ReadBytes5", Result = true)]
+		[TestCase(6, TestName = "ReadBytes6", Result = true)]
+		[TestCase(7, TestName = "ReadBytes7", Result = false, ExpectedException = typeof(FormatException))]
+		[TestCase(8, TestName = "ReadBytes8", Result = false, ExpectedException = typeof(FormatException))]
+		[TestCase(9, TestName = "ReadBytes9", Result = false, ExpectedException = typeof(FormatException))]
+		public bool ReadBytesTest(int selector)
 		{
 			using (var tf = new TestFile(Encoding.UTF8))
 			{
@@ -304,12 +78,20 @@ namespace StringReaderCatalog.Test
 
 				var imageBytes = Convert.FromBase64String(imageString);
 
-				Assert.AreEqual<int>(tf.FileSize, imageBytes.Length);
-				Assert.IsTrue(imageBytes.SequenceEqual(tf.FileBytes));
+				return (tf.FileSize == imageBytes.Length)
+					&& imageBytes.SequenceEqual(tf.FileBytes);
 			}
 		}
 
-		private async Task ReadBytesAsyncTestBase(int selector)
+		[TestCase(0, TestName = "ReadBytesAsync0", Result = true)]
+		[TestCase(1, TestName = "ReadBytesAsync1", Result = true)]
+		[TestCase(2, TestName = "ReadBytesAsync2", Result = true)]
+		[TestCase(3, TestName = "ReadBytesAsync3", Result = true)]
+		[TestCase(4, TestName = "ReadBytesAsync4", Result = true)]
+		[TestCase(5, TestName = "ReadBytesAsync5", Result = false, ExpectedException = typeof(FormatException))]
+		[TestCase(6, TestName = "ReadBytesAsync6", Result = false, ExpectedException = typeof(FormatException))]
+		[TestCase(7, TestName = "ReadBytesAsync7", Result = false, ExpectedException = typeof(FormatException))]
+		public async Task<bool> ReadBytesAsyncTest(int selector)
 		{
 			using (var tf = new TestFile(Encoding.UTF8))
 			{
@@ -323,12 +105,10 @@ namespace StringReaderCatalog.Test
 
 					var imageBytes = Convert.FromBase64String(imageString);
 
-					Assert.AreEqual<int>(tf.FileSize, imageBytes.Length);
-					Assert.IsTrue(imageBytes.SequenceEqual(tf.FileBytes));
+					return (tf.FileSize == imageBytes.Length)
+						&& imageBytes.SequenceEqual(tf.FileBytes);
 				}
 			}
 		}
-
-		#endregion
 	}
 }

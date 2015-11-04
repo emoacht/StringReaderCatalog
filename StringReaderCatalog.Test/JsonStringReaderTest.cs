@@ -1,113 +1,38 @@
 ﻿using System;
 using System.IO;
 using System.Linq;
+using System.Runtime.Serialization;
 using System.Threading.Tasks;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 
 namespace StringReaderCatalog.Test
 {
-	[TestClass]
+	[TestFixture]
 	public class JsonStringReaderTest
 	{
-		#region Save then Load test
-
-		[TestMethod]
-		public async Task SaveLoadTestAsync0()
-		{
-			Assert.IsTrue(await SaveLoadTestBaseAsync(true, true, 0));
-		}
-
-		[TestMethod]
-		public async Task SaveLoadTestAsync1()
-		{
-			Assert.IsTrue(await SaveLoadTestBaseAsync(true, true, 1));
-		}
-
-		[TestMethod]
-		public async Task SaveLoadTestAsync2()
-		{
-			Assert.IsTrue(await SaveLoadTestBaseAsync(true, true, 2));
-		}
-
-		[TestMethod]
-		public async Task SaveLoadTestAsync3()
-		{
-			Assert.IsTrue(await SaveLoadTestBaseAsync(true, true, 3));
-		}
-
-		[TestMethod]
-		public async Task SaveLoadTestAsync4()
-		{
-			Assert.IsTrue(await SaveLoadTestBaseAsync(true, true, 4));
-		}
-
-		[TestMethod]
-		public async Task SaveLoadTestAsync5()
-		{
-			Assert.IsTrue(await SaveLoadTestBaseAsync(true, true, 5));
-		}
-
-		[TestMethod]
-		public async Task SaveLoadTestAsync6()
-		{
-			Assert.IsTrue(await SaveLoadTestBaseAsync(true, true, 6));
-		}
-
-		[TestMethod]
-		public async Task SaveLoadTestAsync7()
-		{
-			Assert.IsTrue(await SaveLoadTestBaseAsync(true, true, 7));
-		}
-
-		[TestMethod]
-		public async Task SaveLoadTestAsync8()
-		{
-			Assert.IsTrue(await SaveLoadTestBaseAsync(true, true, 8));
-		}
-
-		[TestMethod]
-		public async Task SaveLoadTestAsync9()
-		{
-			Assert.IsTrue(await SaveLoadTestBaseAsync(true, true, 9));
-		}
-
-		[TestMethod]
-		public async Task SaveLoadTestAsync10()
-		{
-			Assert.IsTrue(await SaveLoadTestBaseAsync(true, true, 10));
-		}
-
-		[TestMethod]
-		public async Task SaveLoadTestAsync11()
-		{
-			Assert.IsTrue(await SaveLoadTestBaseAsync(true, true, 11));
-		}
-
-		[TestMethod]
-		public async Task SaveLoadTestAsync12()
-		{
-			Assert.IsTrue(await SaveLoadTestBaseAsync(false, false, 0));
-		}
-
-		[TestMethod]
-		public async Task SaveLoadTestAsync13()
-		{
-			Assert.IsTrue(await SaveLoadTestBaseAsync(true, false, 0));
-		}
-
-		#endregion
-
-		#region Base
-
-		private async Task<bool> SaveLoadTestBaseAsync(bool canEmitBom, bool canAcceptBom, int selector)
+		[TestCase(true, true, 0, TestName = "SaveLoadAsync0", Result = true)]
+		[TestCase(true, true, 1, TestName = "SaveLoadAsync1", Result = true)]
+		[TestCase(true, true, 2, TestName = "SaveLoadAsync2", Result = true)]
+		[TestCase(true, true, 3, TestName = "SaveLoadAsync3", Result = true)]
+		[TestCase(true, true, 4, TestName = "SaveLoadAsync4", Result = true)]
+		[TestCase(true, true, 5, TestName = "SaveLoadAsync5", Result = true)]
+		[TestCase(true, true, 6, TestName = "SaveLoadAsync6", Result = true)]
+		[TestCase(true, true, 7, TestName = "SaveLoadAsync7", Result = true)]
+		[TestCase(true, true, 8, TestName = "SaveLoadAsync8", Result = true)]
+		[TestCase(true, true, 9, TestName = "SaveLoadAsync9", Result = true)]
+		[TestCase(true, true, 10, TestName = "SaveLoadAsync10", Result = true)]
+		[TestCase(true, true, 11, TestName = "SaveLoadAsync11", Result = true)]
+		[TestCase(false, false, 0, TestName = "SaveLoadAsync12", Result = true)]
+		[TestCase(true, false, 0, TestName = "SaveLoadAsync13", Result = false, ExpectedException = typeof(SerializationException))]
+		public async Task<bool> SaveLoadAsyncTest(bool canEmitBom, bool canAcceptBom, int selector)
 		{
 			var filePath = Path.GetTempFileName();
 
 			try
 			{
-				await JsonStringReaderTest.SaveAsync(filePath, canEmitBom, selector);
+				await SaveAsync(filePath, canEmitBom, selector);
 
-				return await JsonStringReaderTest.LoadAsync(filePath, canAcceptBom);
+				return await LoadAsync(filePath, canAcceptBom);
 			}
 			finally
 			{
@@ -144,10 +69,8 @@ namespace StringReaderCatalog.Test
 		private static DataBag[] GetSampleBags(int count)
 		{
 			return Enumerable.Range(100, count)
-				.Select(x => new DataBag { Id = x, Name = String.Format("Name{0}", x) })
+				.Select(x => new DataBag { Id = x, Name = $"Name{x}" })
 				.ToArray();
 		}
-
-		#endregion
 	}
 }
