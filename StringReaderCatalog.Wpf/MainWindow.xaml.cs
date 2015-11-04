@@ -1,5 +1,4 @@
-﻿using StringReaderCatalog.Test;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
@@ -14,77 +13,78 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using StringReaderCatalog.Test;
 
 namespace StringReaderCatalog.Wpf
 {
-    public partial class MainWindow : Window
-    {
-        public MainWindow()
-        {
-            InitializeComponent();
+	public partial class MainWindow : Window
+	{
+		public MainWindow()
+		{
+			InitializeComponent();
 
-            this.Loaded += OnLoaded;
-        }
+			this.Loaded += OnLoaded;
+		}
 
-        private async void OnLoaded(object sender, RoutedEventArgs e)
-        {
-            //await JsonSaveLoadAsync();
+		private async void OnLoaded(object sender, RoutedEventArgs e)
+		{
+			//await JsonSaveLoadAsync();
 
-            await StreamBytesReadAsync();
-        }
+			await StreamBytesReadAsync();
+		}
 
-        private async Task JsonSaveLoadAsync()
-        {
-            var filePath = Path.GetTempFileName();
+		private async Task JsonSaveLoadAsync()
+		{
+			var filePath = Path.GetTempFileName();
 
-            try
-            {
-                await JsonStringReaderTest.SaveAsync(filePath, true, 0);
+			try
+			{
+				await JsonStringReaderTest.SaveAsync(filePath, true, 0);
 
-                Debug.WriteLine(await JsonStringReaderTest.LoadAsync(filePath, true));
-            }
-            catch (Exception ex)
-            {
-                Debug.WriteLine(ex);
-            }
-        }
+				Debug.WriteLine(await JsonStringReaderTest.LoadAsync(filePath, true));
+			}
+			catch (Exception ex)
+			{
+				Debug.WriteLine(ex);
+			}
+		}
 
-        private readonly int[] bufferSizes = { 64, 128, 256, 512, }; // Buffer sizes in KiB
+		private readonly int[] bufferSizes = { 64, 128, 256, 512, }; // Buffer sizes in KiB
 
-        private async Task StreamBytesReadAsync()
-        {
-            var filePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "TestFile");
-            if (!File.Exists(filePath))
-                return;
+		private async Task StreamBytesReadAsync()
+		{
+			var filePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "TestFile");
+			if (!File.Exists(filePath))
+				return;
 
-            foreach (var bufferSize in bufferSizes)
-            {
-                Debug.WriteLine("Start {0}KiB", bufferSize);
+			foreach (var bufferSize in bufferSizes)
+			{
+				Debug.WriteLine("Start {0}KiB", bufferSize);
 
-                var sw = new Stopwatch();
-                sw.Start();
+				var sw = new Stopwatch();
+				sw.Start();
 
-                double oldValue = 0;
+				double oldValue = 0;
 
-                var progress = new Progress<StreamProgress>(x => ShowPercentage(ref oldValue, x.Percentage));
+				var progress = new Progress<StreamProgress>(x => ShowPercentage(ref oldValue, x.Percentage));
 
-                await StreamBytesReader.ReadBytesAsync(filePath, bufferSize * 1024, progress, CancellationToken.None);
+				await StreamBytesReader.ReadBytesAsync(filePath, bufferSize * 1024, progress, CancellationToken.None);
 
-                sw.Stop();
+				sw.Stop();
 
-                Debug.WriteLine("Complete {0}KiB {1:f3} sec", bufferSize, sw.Elapsed.TotalSeconds);
-            }
-        }
+				Debug.WriteLine("Complete {0}KiB {1:f3} sec", bufferSize, sw.Elapsed.TotalSeconds);
+			}
+		}
 
-        private void ShowPercentage(ref double oldValue, double newValue)
-        {
-            var value = Math.Round(newValue * 100D) / 100D;
+		private void ShowPercentage(ref double oldValue, double newValue)
+		{
+			var value = Math.Round(newValue * 100D) / 100D;
 
-            if (oldValue < value)
-            {
-                oldValue = value;
-                Debug.WriteLine("{0:f2}", value);
-            }
-        }
-    }
+			if (oldValue < value)
+			{
+				oldValue = value;
+				Debug.WriteLine("{0:f2}", value);
+			}
+		}
+	}
 }

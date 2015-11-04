@@ -91,7 +91,6 @@ namespace StringReaderCatalog
 
 		#endregion
 
-
 		#region Save
 
 		public static async Task SaveNoBomAsync<T>(string filePath, T source)
