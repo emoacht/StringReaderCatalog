@@ -59,7 +59,7 @@ namespace StringReaderCatalog.Wpf
 
 			foreach (var bufferSize in bufferSizes)
 			{
-				Debug.WriteLine("Start {0}KiB", bufferSize);
+				Debug.WriteLine($"Start {bufferSize}KiB");
 
 				var sw = new Stopwatch();
 				sw.Start();
@@ -72,7 +72,7 @@ namespace StringReaderCatalog.Wpf
 
 				sw.Stop();
 
-				Debug.WriteLine("Complete {0}KiB {1:f3} sec", bufferSize, sw.Elapsed.TotalSeconds);
+				Debug.WriteLine($"Complete {bufferSize}KiB {sw.Elapsed.TotalSeconds:f3} sec");
 			}
 		}
 
@@ -83,7 +83,7 @@ namespace StringReaderCatalog.Wpf
 			if (oldValue < value)
 			{
 				oldValue = value;
-				Debug.WriteLine("{0:f2}", value);
+				Debug.WriteLine($"{value:f2}");
 			}
 		}
 	}

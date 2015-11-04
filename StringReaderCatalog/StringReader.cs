@@ -77,13 +77,13 @@ namespace StringReaderCatalog
 					// FileStream constructor then Read then Encoding.GetString
 					using (var fs = new FileStream(filePath, FileMode.Open, FileAccess.Read, FileShare.ReadWrite))
 					{
-						var buff = new Byte[fs.Length];
+						var buff = new byte[fs.Length];
 						fs.Read(buff, 0, buff.Length);
 						return Encoding.UTF8.GetString(buff);
 					}
 
 				default:
-					throw new ArgumentOutOfRangeException("selector");
+					throw new ArgumentOutOfRangeException(nameof(selector));
 			}
 		}
 
@@ -134,7 +134,7 @@ namespace StringReaderCatalog
 					return await FileAddition.ReadAllTextAsync(filePath, Encoding.UTF8);
 
 				case 8:
-					// FileAddition.ReadAllTextAsync with encoding and CancellationToken
+					// FileAddition.ReadAllTextAsync with encoding and cancellation token
 					using (var cts = new CancellationTokenSource())
 					{
 						return await FileAddition.ReadAllTextAsync(filePath, Encoding.UTF8, cts.Token);
@@ -145,13 +145,13 @@ namespace StringReaderCatalog
 					// FileStream constructor then ReadAsync then Encoding.GetString
 					using (var fs = new FileStream(filePath, FileMode.Open, FileAccess.Read, FileShare.ReadWrite))
 					{
-						var bytes = new Byte[fs.Length];
-						await fs.ReadAsync(bytes, 0, bytes.Length);
-						return Encoding.UTF8.GetString(bytes);
+						var buff = new byte[fs.Length];
+						await fs.ReadAsync(buff, 0, buff.Length);
+						return Encoding.UTF8.GetString(buff);
 					}
 
 				default:
-					throw new ArgumentOutOfRangeException("selector");
+					throw new ArgumentOutOfRangeException(nameof(selector));
 			}
 		}
 
@@ -223,7 +223,7 @@ namespace StringReaderCatalog
 					}
 
 				default:
-					throw new ArgumentOutOfRangeException("selector");
+					throw new ArgumentOutOfRangeException(nameof(selector));
 			}
 		}
 
@@ -269,7 +269,7 @@ namespace StringReaderCatalog
 					// MemoryStream constructor then ReadAsync then UnicodeStringReader.Read
 					using (var ms = new MemoryStream(source))
 					{
-						var buff = new Byte[ms.Length];
+						var buff = new byte[ms.Length];
 						await ms.ReadAsync(buff, 0, buff.Length);
 						return UnicodeStringReader.Read(buff);
 					}
@@ -279,7 +279,7 @@ namespace StringReaderCatalog
 					// MemoryStream constructor then ReadAsync then Encoding.GetString
 					using (var ms = new MemoryStream(source))
 					{
-						var buff = new Byte[ms.Length];
+						var buff = new byte[ms.Length];
 						await ms.ReadAsync(buff, 0, buff.Length);
 						return Encoding.UTF8.GetString(buff);
 					}
@@ -293,7 +293,7 @@ namespace StringReaderCatalog
 					}
 
 				default:
-					throw new ArgumentOutOfRangeException("selector");
+					throw new ArgumentOutOfRangeException(nameof(selector));
 			}
 		}
 	}

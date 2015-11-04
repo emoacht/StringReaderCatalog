@@ -75,7 +75,7 @@ namespace StringReaderCatalog
 				{
 					var inputString = await sr.ReadToEndAsync().ConfigureAwait(false);
 
-					await sw.WriteAsync(inputString);
+					await sw.WriteAsync(inputString).ConfigureAwait(false);
 					await sw.FlushAsync();
 					ms.Seek(0, SeekOrigin.Begin);
 
@@ -117,10 +117,10 @@ namespace StringReaderCatalog
 				serializer.WriteObject(ms, source);
 				ms.Seek(0, SeekOrigin.Begin);
 
-				var outputString = await sr.ReadToEndAsync();
+				var outputString = await sr.ReadToEndAsync().ConfigureAwait(false);
 
 				/* BOM will be emitted. */
-				await sw.WriteAsync(outputString);
+				await sw.WriteAsync(outputString).ConfigureAwait(false);
 				await sw.FlushAsync();
 			}
 		}
@@ -168,7 +168,7 @@ namespace StringReaderCatalog
 						break;
 
 					case 4:
-						// FileAddition.WriteAllTextAsync with encoding and CancellationToken
+						// FileAddition.WriteAllTextAsync with encoding and cancellation token
 						using (var cts = new CancellationTokenSource())
 						{
 							await FileAddition.WriteAllTextAsync(filePath, outputString, false, Encoding.UTF8, cts.Token);
@@ -219,7 +219,7 @@ namespace StringReaderCatalog
 						break;
 
 					case 11:
-						// FileAddition.WriteAllTextAsync without encoding but with CancellationToken
+						// FileAddition.WriteAllTextAsync without encoding but with cancellation token
 						using (var cts = new CancellationTokenSource())
 						{
 							await FileAddition.WriteAllTextAsync(filePath, outputString, false, cts.Token);
@@ -227,7 +227,7 @@ namespace StringReaderCatalog
 						break;
 
 					default:
-						throw new ArgumentOutOfRangeException("selector");
+						throw new ArgumentOutOfRangeException(nameof(selector));
 				}
 			}
 		}

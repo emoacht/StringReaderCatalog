@@ -18,6 +18,9 @@ namespace StringReaderCatalog
 
 		public static string Read(byte[] source)
 		{
+			if (source == null)
+				throw new ArgumentNullException(nameof(source));
+
 			foreach (var encoding in unicodeEncodings)
 			{
 				string outcome;
@@ -37,7 +40,7 @@ namespace StringReaderCatalog
 				return false;
 			}
 
-			Debug.WriteLine("Encoding: {0}", encoding);
+			Debug.WriteLine($"Encoding: {encoding}");
 
 			outcome = encoding.GetString(source.Skip(preamble.Length).ToArray());
 			return true;
@@ -45,6 +48,9 @@ namespace StringReaderCatalog
 
 		public static Encoding DetectUnicodeEncoding(byte[] source)
 		{
+			if (source == null)
+				throw new ArgumentNullException(nameof(source));
+
 			foreach (var encoding in unicodeEncodings)
 			{
 				var preamble = encoding.GetPreamble();

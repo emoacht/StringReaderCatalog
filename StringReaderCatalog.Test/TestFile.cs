@@ -26,7 +26,7 @@ namespace StringReaderCatalog.Test
 
 		private void CreateTestFile()
 		{
-			if ((FileEncoding == null) || String.IsNullOrEmpty(FilePath))
+			if ((FileEncoding == null) || string.IsNullOrEmpty(FilePath))
 				return;
 
 			var imageBitmap = Properties.Resources.cockpit;
@@ -38,14 +38,13 @@ namespace StringReaderCatalog.Test
 
 		private void DeleteTestFile()
 		{
-			if (String.IsNullOrEmpty(FilePath))
+			if (string.IsNullOrEmpty(FilePath))
 				return;
 
 			File.Delete(FilePath);
 		}
 
-
-		#region IDisposable member
+		#region Dispose
 
 		private bool disposed = false;
 

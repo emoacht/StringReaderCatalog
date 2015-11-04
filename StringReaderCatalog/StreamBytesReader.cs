@@ -24,7 +24,7 @@ namespace StringReaderCatalog
 				while (fs.Position < fs.Length)
 				{
 					var readPosition = fs.Position;
-					var readCount = await fs.ReadAsync(buffer, 0, buffer.Length, cancellationToken);
+					var readCount = await fs.ReadAsync(buffer, 0, buffer.Length, cancellationToken).ConfigureAwait(false);
 
 					Array.Copy(buffer, 0L, bufferTotal, readPosition, (long)readCount); // Buffer.BlockCopy method accepts only int parameters.
 

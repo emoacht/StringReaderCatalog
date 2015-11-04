@@ -108,7 +108,7 @@ namespace StringReaderCatalog.Console
 				if (int.TryParse(args[1], out buff))
 				{
 					selector = buff;
-					System.Console.WriteLine("Selector: {0}", selector);
+					System.Console.WriteLine($"Selector: {selector}");
 				}
 			}
 

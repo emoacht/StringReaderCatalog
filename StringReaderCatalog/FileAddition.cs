@@ -10,7 +10,7 @@ namespace StringReaderCatalog
 	/// </summary>
 	public static class FileAddition
 	{
-		private const int defaultCopyBufferSize = 81920; // 80KiB is actual default buffer size in System.IO.File class.
+		public const int defaultCopyBufferSize = 81920; // 80KiB is actual default buffer size in System.IO.File class.
 
 		#region Read
 
@@ -42,7 +42,7 @@ namespace StringReaderCatalog
 		/// </summary>
 		/// <param name="filePath">Source file path</param>
 		/// <param name="encoding">Character encoding</param>
-		/// <param name="cancellationToken">CancellationToken</param>
+		/// <param name="cancellationToken">Cancellation token</param>
 		/// <returns>Contents of source file</returns>
 		public static async Task<string> ReadAllTextAsync(string filePath, Encoding encoding, CancellationToken cancellationToken)
 		{
@@ -100,7 +100,7 @@ namespace StringReaderCatalog
 		/// <param name="filePath">Target file path</param>
 		/// <param name="contents">Contents being written to target file</param>
 		/// <param name="append">Whether contents to be appended</param>
-		/// <param name="cancellationToken">CancellationToken</param>
+		/// <param name="cancellationToken">Cancellation token</param>
 		/// <returns></returns>
 		/// <remarks>No BOM will be emitted.</remarks>
 		public static async Task WriteAllTextAsync(string filePath, string contents, bool append, CancellationToken cancellationToken)
@@ -111,7 +111,7 @@ namespace StringReaderCatalog
 			using (var sw = new StreamWriter(fs))
 			{
 				await sw.WriteAsync(contents).ConfigureAwait(false);
-				await sw.FlushAsync();
+				await sw.FlushAsync().ConfigureAwait(false);
 				await fs.FlushAsync(cancellationToken);
 			}
 		}
@@ -123,7 +123,7 @@ namespace StringReaderCatalog
 		/// <param name="contents">Contents being written to target file</param>
 		/// <param name="append">Whether contents to be appended</param>
 		/// <param name="encoding">Character encoding</param>
-		/// <param name="cancellationToken">CancellationToken</param>
+		/// <param name="cancellationToken">Cancellation token</param>
 		/// <returns></returns>
 		/// <remarks>BOM will be emitted if encoding is Unicode.</remarks>
 		public static async Task WriteAllTextAsync(string filePath, string contents, bool append, Encoding encoding, CancellationToken cancellationToken)
@@ -134,7 +134,7 @@ namespace StringReaderCatalog
 			using (var sw = new StreamWriter(fs, encoding))
 			{
 				await sw.WriteAsync(contents).ConfigureAwait(false);
-				await sw.FlushAsync();
+				await sw.FlushAsync().ConfigureAwait(false);
 				await fs.FlushAsync(cancellationToken);
 			}
 		}
