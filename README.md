@@ -3,9 +3,12 @@ String Reader Catalog
 
 A catalog of methods to read string by C#, especially focusing on handling of Unicode BOM
 
-##Note
+#BOM
 
- * The types of BOM are described in [System.Text.Encoding.GetPreamble](https://msdn.microsoft.com/en-us/library/system.text.encoding.getpreamble.aspx) method.
- * [System.IO.StreamReader](https://msdn.microsoft.com/en-us/library/system.io.streamreader.aspx) class has private [DetectEncoding](http://referencesource.microsoft.com/#mscorlib/system/io/streamreader.cs,ea5187ae9c79350e) method and so can correctly handle BOM.
- * [System.Text.Encoding.GetString](https://msdn.microsoft.com/en-us/library/system.text.encoding.getstring.aspx) method doesn't remove BOM even if the source bytes contain BOM.
- * [System.IO.File.ReadAllText](https://msdn.microsoft.com/en-us/library/system.io.file.readalltext.aspx) method calls StreamReader class through private [InternalReadAllText](http://referencesource.microsoft.com/#mscorlib/system/io/file.cs,c193e57831aa94a9) method.
+ * The BOM is 2-4 bytes of data which can be inserted at the head of actual string data in order to indicate the type of Unicode encoding.
+  You can get concrete BOM by [System.Text.Encoding.GetPreamble](https://msdn.microsoft.com/en-us/library/system.text.encoding.getpreamble.aspx) method.
+ * [System.IO.StreamReader](https://msdn.microsoft.com/en-us/library/system.io.streamreader.aspx) class has private [DetectEncoding](http://referencesource.microsoft.com/#mscorlib/system/io/streamreader.cs,ea5187ae9c79350e) method and so can handle BOM correctly.
+ * [System.IO.File.ReadAllText](https://msdn.microsoft.com/en-us/library/system.io.file.readalltext.aspx) method calls StreamReader class through private [InternalReadAllText](http://referencesource.microsoft.com/#mscorlib/system/io/file.cs,c193e57831aa94a9) method and so can handle BOM.
+ * [System.Text.Encoding.GetString](https://msdn.microsoft.com/en-us/library/system.text.encoding.getstring.aspx) method doesn't remove BOM even if the source byte array contains BOM.
+  It produces unreadable characters from BOM at the head of string.
+ 
