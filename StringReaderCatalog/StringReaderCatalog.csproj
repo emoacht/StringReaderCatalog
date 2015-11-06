@@ -43,7 +43,7 @@
   <ItemGroup>
     <Compile Include="FileAddition.cs" />
     <Compile Include="JsonStringReader.cs" />
-    <Compile Include="StreamBytesReader.cs" />
+    <Compile Include="FileStreamReader.cs" />
     <Compile Include="StreamProgress.cs" />
     <Compile Include="StreamReaderExtension.cs" />
     <Compile Include="StringReader.cs" />
