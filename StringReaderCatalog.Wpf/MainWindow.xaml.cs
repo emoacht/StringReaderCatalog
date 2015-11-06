@@ -54,6 +54,8 @@ namespace StringReaderCatalog.Wpf
 		private async Task StreamBytesReadAsync()
 		{
 			var filePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "TestFile");
+			Debug.WriteLine($"File {filePath}");
+
 			if (!File.Exists(filePath))
 				return;
 
@@ -72,7 +74,7 @@ namespace StringReaderCatalog.Wpf
 
 				sw.Stop();
 
-				Debug.WriteLine($"Complete {bufferSize}KiB {sw.Elapsed.TotalSeconds:f3} sec");
+				Debug.WriteLine($"Complete {bufferSize}KiB {sw.Elapsed.TotalSeconds:f3}sec");
 			}
 		}
 
