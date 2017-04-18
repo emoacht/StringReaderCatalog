@@ -1,9 +1,8 @@
-String Reader Catalog
-=====================
+# String Reader Catalog
 
 A catalog of methods to read string by C#, especially focusing on handling of Unicode BOM
 
-#BOM
+## BOM
 
  * The BOM (byte order mark) is 2-4 bytes of data which can be inserted at the head of actual string data in order to indicate the type of Unicode encoding.
   A concrete BOM can be obtained by [System.Text.Encoding.GetPreamble](https://msdn.microsoft.com/en-us/library/system.text.encoding.getpreamble.aspx) method.
